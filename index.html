@@ -5,14 +5,16 @@
   <title>Worth - Zerodha Login</title>
 </head>
 <body>
-  <p>Logging you in…</p>
+  <p>Logging you in to Zerodha...</p>
   <script>
+    // Extract request_token from Zerodha URL
     const params = new URLSearchParams(location.search);
     const token = params.get("request_token");
     if (token) {
+      // Redirect to your app (matches manifest: worth://zerodha-login)
       window.location.href = "worth://zerodha-login?request_token=" + token;
     } else {
-      document.body.innerHTML = "<h2 style='color:red;'>Login failed — no token received</h2>";
+      document.body.innerHTML = "<h2 style='color:red;'>Login failed — no token received. <a href='https://kite.zerodha.com'>Try again</a></h2>";
     }
   </script>
 </body>
