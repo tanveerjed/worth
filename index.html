@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head><meta charset="UTF-8"><title>Worth Login</title></head>
+<body>
+  <p>Logging you in...</p>
+  <script>
+    const token = new URLSearchParams(location.search).get("request_token");
+    if (token) {
+      location.replace("worth://callback?request_token=" + token);
+    } else {
+      document.body.innerHTML = "<h2 style='color:red;'>Login failed — no token</h2>";
+    }
+  </script>
+</body>
+</html>
