@@ -7,18 +7,25 @@
 <body>
   <p>Logging you in to Zerodha...</p>
   <script>
-    // Wait a bit to ensure page loads, then execute redirect
+    // Add delay to ensure page loads fully
     setTimeout(function() {
-      var params = new URLSearchParams(window.location.search);
-      var token = params.get("request_token");
-      if (token && token.length > 0) {
-        // Encode token to handle special chars, then redirect to app
-        var encodedToken = encodeURIComponent(token);
-        window.location.href = "worth://zerodha-login?request_token=" + encodedToken;
-      } else {
-        document.body.innerHTML = "<h2 style='color:red;'>Login failed — no token received. <a href='https://kite.zerodha.com'>Try login again</a></h2>";
+      try {
+        var params = new URLSearchParams(window.location.search);
+        var token = params.get("request_token");
+        console.log("Token extracted:", token);  // For debugging
+        if (token && token.length > 0) {
+          var encodedToken = encodeURIComponent(token);
+          console.log("Redirecting to:", "worth://zerodha-login?request_token=" + encodedToken);
+          window.location.href = "worth://zerodha-login?request_token=" + encodedToken;
+        } else {
+          console.log("No token found");
+          document.body.innerHTML = "<h2 style='color:red;'>Login failed — no token received. <a href='https://kite.zerodha.com'>Try again</a></h2>";
+        }
+      } catch (error) {
+        console.error("Script error:", error);
+        document.body.innerHTML = "<h2 style='color:red;'>Redirect error. Check console.</h2>";
       }
-    }, 500);  // 500ms delay for reliability
+    }, 1000);  // 1 second delay for reliability
   </script>
 </body>
 </html>
